@@ -1,0 +1,86 @@
+[build-system]
+requires = ["setuptools>=45", "setuptools_scm[toml]>=6.2"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name= "python-template"
+authors = [
+    { name = "James Phillip Sanders", email = "jpsanders@tuta.io" }
+]
+maintainers = [
+  { name = "James Phillip Sanders", email = "jpsanders@tuta.io" }
+]
+description = "Python Package Template"
+requires-python = ">=3.12"
+dependencies = []
+dynamic = ["version"]
+
+[project.optional-dependencies]
+dev = [
+  "bandit[toml]",
+  "build",
+  "editorconfig-checker==2.7.2",
+  "mypy>=1.4.1",
+  "pytest",
+  "pytest-cov",
+  "ruff",
+]
+
+[project.scripts]
+python-pet = "python_template.python_pet:main"
+
+[tool.setuptools_scm]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+genesys = ["py.typed"]
+
+[tool.mypy]
+strict = true
+check_untyped_defs = true
+explicit_package_bases = true
+mypy_path = "src"
+cache_dir = "build/.mypy_cache"
+
+[[tool.mypy.overrides]]
+module = []
+ignore_missing_imports = true
+
+[tool.ruff]
+cache-dir = "build/.ruff_cache"
+line-length = 120
+extend-exclude = [
+    "venv", ".git", ".env", ".venv", ".tox", "env", "dist", "build"
+]
+
+[tool.ruff.lint]
+# Enables pycodestyle, Pyflakes, pyupgrade, flake8-bugbear, flake8-simplify, pydocstyle, and isort.
+select = ["E", "F", "UP", "B", "SIM", "D", "I"]
+ignore = [
+    "D1", "D202", "D203", "D205", "D212", "D400", "D406", "D407", "D411", "D413",
+    "E203", "E701"
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["D"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["genesys_core", "genesys_aws", "genesys_dev"]
+
+[tool.bandit]
+exclude_dirs = ["tests"]
+
+[tool.darglint]
+docstring_style = "sphinx"
+message_template = "{path}:{line}:{msg_id}:{msg}"
+ignore_regex = "^((_[a-z])|(test_))(.*)"
+ignore_raise = "UnpossibleError"
+ignore = ["DAR402"]
+
+[tool.coverage.run]
+data_file = "build/.coverage"
+
+[tool.pytest.ini_options]
+cache_dir = "build/.pytest_cache"

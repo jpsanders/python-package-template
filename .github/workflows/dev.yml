@@ -1,0 +1,31 @@
+---
+name: python-template-ci
+
+on:
+  push:
+    branches:
+      - 'main'
+  pull_request:
+    branches:
+      - '*'
+  # Run CI manually
+  workflow_dispatch:
+
+jobs:
+  lint:
+    uses: "./.github/workflows/python-checks.yml"
+    secrets:
+      # This will allow installing pip packages from a package repository.
+      package-repo: ${{ secrets.PKG_REPOSITORY }}
+  test:
+    needs: lint
+    uses: "./.github/workflows/python-tests.yml"
+    secrets:
+      # This will allow installing pip packages from a package repository.
+      package-repo: ${{ secrets.PKG_REPOSITORY }}
+  test_with_db:
+    needs: lint
+    uses: "./.github/workflows/python-tests-with-db.yml"
+    secrets:
+      # This will allow installing pip packages from a package repository.
+      package-repo: ${{ secrets.PKG_REPOSITORY }}
