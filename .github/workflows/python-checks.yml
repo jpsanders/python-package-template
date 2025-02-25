@@ -70,12 +70,12 @@ jobs:
           make ec
 
       - name: "Run ruff format checks"
-        if: ${{ inputs.enable-ruff-format-check && (success() || failure()) }}
+        if: ${{ inputs.enable-ruff-format && (success() || failure()) }}
         run: |
           make ruff-format-check
 
       - name: "Run ruff lint checks"
-        if: ${{ inputs.enable-ruff-lint-check && (success() || failure()) }}
+        if: ${{ inputs.enable-ruff-lint && (success() || failure()) }}
         run: |
           make ruff-lint-check
 
