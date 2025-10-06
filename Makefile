@@ -19,7 +19,7 @@ create-egg-base:
 	mkdir -p build/egg_base
 
 .PHONY: init
-init: create-egg-base
+init: create-egg-base init-dev
 	@echo
 	pip install -e .
 
@@ -28,35 +28,50 @@ init-dev: create-egg-base
 	@echo
 	pip install -e .[dev]
 
+.PHONY: format
+format: black isort
+
+.PHONY: isort-check
+isort-check:
+	@echo
+	@echo --- Isort check ---
+	isort --check --diff ${SRC} ${TESTS}
+
+.PHONY: isort
+isort:
+	@echo
+	@echo --- Isort auto format ---
+	isort ${SRC} ${TESTS}
+
+.PHONY: black-check
+black-check:
+	@echo
+	@echo --- Black check ---
+	black --check --diff ${SRC} ${TESTS}
+
+.PHONY: black
+black:
+	@echo
+	@echo --- Black auto format ---
+	black ${SRC} ${TESTS}
+
 .PHONY: ec
 ec:
 	@echo
 	@echo --- Editorconfig linting checks ---
 	ec ${SRC} ${TESTS} ${ROOT_EC_FILES}
 
-.PHONY: ruff-format
-ruff-format:
+.PHONY: docstyle
+docstyle:
 	@echo
-	@echo --- Ruff format auto-fix ---
-	ruff format --config pyproject.toml ${SRC} ${TESTS}
+	@echo --- Darglint docstring checks ---
+	darglint -v 2 ${SRC} ${TESTS}
 
-.PHONY: ruff-format-check
-ruff-format-check:
+.PHONY: lint
+lint:
 	@echo
-	@echo --- Ruff format check ---
-	ruff format --config pyproject.toml --check ${SRC} ${TESTS}
-
-.PHONY: ruff-lint-check
-ruff-lint-check:
-	@echo
-	@echo --- Ruff lint check ---
-	ruff check --config pyproject.toml ${SRC} ${TESTS}
-
-.PHONY: ruff-lint
-ruff-lint:
-	@echo
-	@echo --- Ruff lint auto-fix ---
-	ruff check --config pyproject.toml --fix ${SRC} ${TESTS}
+	@echo --- Flake8 linting checks ---
+	flake8 ${SRC} ${TESTS}
 
 .PHONY: mypy
 mypy:
@@ -65,10 +80,10 @@ mypy:
 	mypy ${SRC} ${TESTS}
 
 .PHONY: pytest
-pytest: create-egg-base
+pytest:
 	@echo
-	@echo --- Pytest ---
-	pytest --cov ${SRC}/${PACKAGE} --cov-report html:build/coverage --cov-report term ${TESTS}
+	@echo --- Pytest regression and unit tests ---
+	pytest --cov ${SRC}/${PACKAGE} ${TESTS}
 
 .PHONY: bandit
 bandit:
@@ -96,8 +111,4 @@ clean:
 
 # Run all checking tools
 .PHONY: checks
-checks: ec ruff-lint-check ruff-format-check mypy bandit pytest
-
-# Run all auto-fix tools
-.PHONY: format
-format: ruff-lint ruff-format
+checks: isort-check black-check ec docstyle lint mypy bandit pytest

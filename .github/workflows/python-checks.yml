@@ -16,11 +16,19 @@ on:
         type: boolean
         default: true
 
-      enable-ruff-format:
+      enable-black:
         type: boolean
         default: true
 
-      enable-ruff-lint:
+      enable-isort:
+        type: boolean
+        default: true
+
+      enable-lint:
+        type: boolean
+        default: true
+
+      enable-docstyle:
         type: boolean
         default: true
 
@@ -69,20 +77,30 @@ jobs:
         run: |
           make ec
 
-      - name: "Run ruff format checks"
-        if: ${{ inputs.enable-ruff-format && (success() || failure()) }}
+      - name: "Run black style checks"
+        if: ${{ inputs.enable-black && (success() || failure()) }}
         run: |
-          make ruff-format-check
+          make black-check
 
-      - name: "Run ruff lint checks"
-        if: ${{ inputs.enable-ruff-lint && (success() || failure()) }}
+      - name: "Run isort import checks"
+        if: ${{ inputs.enable-isort && (success() || failure()) }}
         run: |
-          make ruff-lint-check
+          make isort-check
 
       - name: "Run bandit security checks"
         if: ${{ inputs.enable-bandit && (success() || failure()) }}
         run: |
           make bandit
+
+      - name: "Run flake8 lint checks"
+        if: ${{ inputs.enable-lint && (success() || failure()) }}
+        run: |
+          make lint
+
+      - name: "Run docstring checks"
+        if: ${{ inputs.enable-docstyle && (success() || failure()) }}
+        run: |
+          make docstyle
 
       - name: "Run mypy static type checks"
         if: ${{ inputs.enable-mypy && (success() || failure()) }}

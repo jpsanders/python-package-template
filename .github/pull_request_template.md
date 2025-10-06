@@ -3,7 +3,7 @@
 
 ### Reference
 <!--- Provide the related ticket(s) or issue id(s) this PR addresses -->
-**Ticket:** XX-XXX
+**Ticket:**
 
 ### Additional Notes
 <!--- Add any additional notes or comments for the reviewers (test instructions, examples, screenshots etc) -->
