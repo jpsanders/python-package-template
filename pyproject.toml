@@ -5,10 +5,10 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "python-template"
 authors = [
-  { name = "James Phillip Sanders", email = "jpsanders@tuta.io" }
+  { name = "James Phillip Sanders", email = "hello@jamesphillipsanders.com" }
 ]
 maintainers = [
-  { name = "James Phillip Sanders", email = "jpsanders@tuta.io" }
+  { name = "James Phillip Sanders", email = "hello@jamesphillipsanders.com" }
 ]
 description = "A Python package template with strict typing, eight checks and CI wired in."
 readme = "README.md"
