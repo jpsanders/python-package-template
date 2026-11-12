@@ -1,32 +1,44 @@
+"""The example the template ships with: a pet whose state is two small numbers."""
+
+from dataclasses import asdict, dataclass
+
+LOWEST, HIGHEST = 0, 10
+
+
+@dataclass
 class PythonPet:
-    def __init__(self, name: str) -> None:
-        self.name: str = name
-        self.hunger: int = 5  # Scale of 0 (full) to 10 (starving).
-        self.happiness: int = 5  # Scale of 0 (sad) to 10 (happy).
+    """
+    A pet with a hunger and a happiness level, each from 0 to 10.
+
+    :param name: What the pet is called
+    :param hunger: 0 is full, 10 is starving
+    :param happiness: 0 is sad, 10 is happy
+    """
+
+    name: str
+    hunger: int = 5
+    happiness: int = 5
 
     def feed(self) -> None:
-        """Reduce hunger level."""
-        if self.hunger > 0:
-            self.hunger -= 1
+        """Lower the hunger level by one, never below 0."""
+        self.hunger = max(LOWEST, self.hunger - 1)
 
     def play(self) -> None:
-        """Increase happiness level."""
-        if self.happiness < 10:
-            self.happiness += 1
+        """Raise the happiness level by one, never above 10."""
+        self.happiness = min(HIGHEST, self.happiness + 1)
 
     def get_status(self) -> str:
         """
-        Return status report.
+        Describe the pet in one line.
 
-        :returns: Status report
+        :returns: The status line
         """
-        return f"{self.name} - Hunger: {self.hunger}, Happiness: {self.happiness}"
+        return f"{self.name}: hunger {self.hunger}, happiness {self.happiness}"
 
+    def as_dict(self) -> dict[str, str | int]:
+        """
+        Return the pet as plain data, for ``--json``.
 
-def main() -> None:
-    python_pet = PythonPet("Baby Python")
-    print(python_pet.get_status())
-
-
-if __name__ == "__main__":
-    main()
+        :returns: The pet's fields
+        """
+        return asdict(self)

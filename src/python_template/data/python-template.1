@@ -1,0 +1,94 @@
+.TH PYTHON-TEMPLATE 1 "" "python-template" "User Commands"
+.SH NAME
+python-template \- an example command: a pet you can feed and play with
+.SH SYNOPSIS
+.RS 4
+.nf
+python\-template [\-\-version] [command] [options]
+python\-template status [\-\-name NAME] [\-\-json]
+python\-template feed [\-\-times N] [\-\-name NAME] [\-\-json]
+python\-template play [\-\-times N] [\-\-name NAME] [\-\-json]
+python\-template guide
+python\-template man [\-\-install | \-\-raw]
+.fi
+.RE
+.SH DESCRIPTION
+.PP
+\fBpython\-template\fR is the example command that ships with python-package-template. It keeps a pet whose state is two numbers from 0 to 10: hunger, where 0 is full, and happiness, where 10 is happy. It exists to show the conventions a command made from the template follows, so replace it with your own once you have renamed the package.
+.PP
+The conventions: every command prints a sentence for people and JSON with \fB\-\-json\fR; \fBguide\fR prints this manual for people and agents alike; \fBman\fR shows the same text as a man page; exit status 0 means success.
+.PP
+With no command, \fBpython\-template\fR runs \fBstatus\fR.
+.SH COMMANDS
+.TP
+\fBstatus\fR
+Show the pet as it starts: hunger 5, happiness 5.
+.TP
+\fBfeed\fR
+Lower hunger by one per feed, never below 0, then show the pet.
+.TP
+\fBplay\fR
+Raise happiness by one per game, never above 10, then show the pet.
+.TP
+\fBguide\fR
+Print this manual as Markdown.
+.TP
+\fBman\fR
+Show the man page. \fB\-\-install\fR puts it where \fBman python\-template\fR finds it; \fB\-\-raw\fR prints roff.
+.SH OPTIONS
+.TP
+\fB\-\-name NAME\fR
+The pet's name. Default: Baby Python.
+.TP
+\fB\-\-times N\fR
+How many times to feed or play, 1 to 10. Default: 1.
+.TP
+\fB\-\-json\fR
+Print one JSON object instead of a sentence.
+.TP
+\fB\-\-version\fR
+Print the version and exit.
+.TP
+\fB\-\-help\fR
+Print the options of a command and exit.
+.SH JSON OUTPUT
+.PP
+\fBstatus\fR, \fBfeed\fR and \fBplay\fR print one object with three fields:
+.RS 4
+.nf
+{"name": "Baby Python", "hunger": 4, "happiness": 5}
+.fi
+.RE
+.PP
+\fBname\fR is a string; \fBhunger\fR and \fBhappiness\fR are integers from 0 to 10.
+.SH EXIT STATUS
+.PP
+0 on success. 2 when the arguments are wrong, with the reason on standard error.
+.SH FILES
+.PP
+\fB~/.local/share/man/man1/python\-template.1\fR is where \fBman \-\-install\fR writes the man page, or \fB$XDG_DATA_HOME/man/man1/\fR when that variable is set.
+.SH EXAMPLES
+.PP
+Feed the pet three times and read the result as JSON:
+.RS 4
+.nf
+python\-template feed \-\-times 3 \-\-json
+.fi
+.RE
+.PP
+Install the man page, then read it:
+.RS 4
+.nf
+python\-template man \-\-install
+man python\-template
+.fi
+.RE
+.SH FOR AGENTS
+.PP
+Run commands with \fB\-\-json\fR and parse the object; the fields are stable. \fBpython\-template guide\fR returns this whole manual, so an agent can learn the command without browsing. Nothing here touches the network or the disk, except \fBman \-\-install\fR, which writes one file in the user's man folder.
+.SH SEE ALSO
+.PP
+The template and its checks: https://github.com/jpsanders/python-package-template
+.SH AUTHOR
+.PP
+James Phillip Sanders, https://jamesphillipsanders.com

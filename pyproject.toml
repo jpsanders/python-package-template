@@ -10,27 +10,30 @@ authors = [
 maintainers = [
   { name = "James Phillip Sanders", email = "hello@jamesphillipsanders.com" }
 ]
-description = "A Python package template with strict typing, eight checks and CI wired in."
+description = "Start every Python package green: Python 3.15, strict typing, eight checks, CI, releases, a man page and an agent skill wired in."
 readme = "README.md"
 license = "MIT"
 license-files = ["LICENSE"]
-requires-python = ">=3.12"
-keywords = ["template", "packaging", "pyproject", "mypy", "pytest"]
+requires-python = ">=3.14"
+keywords = ["template", "packaging", "pyproject", "mypy", "pytest", "python-3.15", "man-page", "ai-agents", "claude-code"]
 classifiers = [
   "Development Status :: 5 - Production/Stable",
   "Intended Audience :: Developers",
   "Programming Language :: Python :: 3",
-  "Programming Language :: Python :: 3.12",
-  "Programming Language :: Python :: 3.13",
   "Programming Language :: Python :: 3.14",
+  "Programming Language :: Python :: 3.15",
+  "Environment :: Console",
+  "Operating System :: OS Independent",
   "Typing :: Typed",
 ]
 dependencies = []
 dynamic = ["version"]
 
 [project.urls]
+Homepage = "https://github.com/jpsanders/python-package-template"
 Repository = "https://github.com/jpsanders/python-package-template"
 Issues = "https://github.com/jpsanders/python-package-template/issues"
+Changelog = "https://github.com/jpsanders/python-package-template/blob/main/CHANGELOG.md"
 
 [project.optional-dependencies]
 dev = [
@@ -49,15 +52,16 @@ dev = [
 ]
 
 [project.scripts]
-python-template = "python_template.python_pet:main"
+python-template = "python_template.cli:main"
 
 [tool.setuptools_scm]
+fallback_version = "0.0.0"
 
 [tool.setuptools.packages.find]
 where = ["src"]
 
 [tool.setuptools.package-data]
-python_template = ["py.typed"]
+python_template = ["py.typed", "data/*"]
 
 [tool.mypy]
 strict = true

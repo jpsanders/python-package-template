@@ -1,0 +1,25 @@
+---
+name: Bug report
+description: A check, a workflow or the rename that did not do what this README says
+labels: ["bug"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: The command you ran, what it did, and what you expected instead.
+    validations:
+      required: true
+  - type: textarea
+    id: output
+    attributes:
+      label: Output
+      description: The failing output of `make checks` or the CI log. Remove anything private.
+      render: text
+  - type: input
+    id: python
+    attributes:
+      label: Python and operating system
+      placeholder: Python 3.15.2 on Ubuntu 26.04
+    validations:
+      required: true

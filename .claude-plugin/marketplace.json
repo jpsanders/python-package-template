@@ -1,0 +1,19 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "python-package-template",
+  "description": "A skill that starts new Python packages from jpsanders/python-package-template.",
+  "owner": {
+    "name": "James Phillip Sanders",
+    "email": "hello@jamesphillipsanders.com"
+  },
+  "plugins": [
+    {
+      "name": "python-package-template",
+      "description": "Start a new Python package with Python 3.15, strict typing, eight checks, CI, releases and a man page.",
+      "version": "1.0.0",
+      "source": "./",
+      "category": "development",
+      "homepage": "https://github.com/jpsanders/python-package-template"
+    }
+  ]
+}

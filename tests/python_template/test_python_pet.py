@@ -2,19 +2,21 @@ from python_template.python_pet import PythonPet
 
 
 class TestPythonPet:
-    def test_python_pet(self) -> None:
-        python_pet = PythonPet("Baby Python")
+    def test_starts_in_the_middle(self) -> None:
+        pet = PythonPet("Baby Python")
+        assert (pet.hunger, pet.happiness) == (5, 5)
 
-        assert python_pet.hunger == 5
-        assert python_pet.happiness == 5
+    def test_feed_and_play(self) -> None:
+        pet = PythonPet("Baby Python")
+        pet.feed()
+        pet.play()
+        assert pet.get_status() == "Baby Python: hunger 4, happiness 6"
 
-        python_pet.feed()
-        assert python_pet.hunger == 4  # Hunger should decrease.
+    def test_levels_stay_within_0_and_10(self) -> None:
+        pet = PythonPet("Rex", hunger=0, happiness=10)
+        pet.feed()
+        pet.play()
+        assert (pet.hunger, pet.happiness) == (0, 10)
 
-        python_pet.play()
-        assert python_pet.happiness == 6  # Happiness should increase.
-
-        status = python_pet.get_status()
-        assert "Baby Python" in status
-        assert "Hunger: 4" in status
-        assert "Happiness: 6" in status
+    def test_as_dict(self) -> None:
+        assert PythonPet("Rex").as_dict() == {"name": "Rex", "hunger": 5, "happiness": 5}

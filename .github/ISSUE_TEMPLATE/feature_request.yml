@@ -1,0 +1,16 @@
+---
+name: Feature request
+description: A check, a workflow or a convention the template should carry
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: The problem
+      description: What goes wrong in a new package today, or what you add by hand every time.
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: What would help

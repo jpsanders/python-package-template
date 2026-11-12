@@ -1,0 +1,18 @@
+# python-package-template
+
+> A GitHub template for Python packages. Python 3.15 first (3.14 supported), strict typing, eight checks wired into
+> CI from the first commit, a man page built from one Markdown manual, a release workflow and an AGENTS.md.
+
+To start a package: `gh repo create NAME --template jpsanders/python-package-template --clone`, then
+`python3 scripts/rename.py your_package`, then `make init-dev && make man && make checks`.
+
+## Docs
+
+- [README](https://github.com/jpsanders/python-package-template/blob/main/README.md): what the template gives and how
+  to start
+- [AGENTS.md](https://github.com/jpsanders/python-package-template/blob/main/AGENTS.md): commands, layout and the
+  rules the checks enforce
+- [Skill](https://github.com/jpsanders/python-package-template/blob/main/skills/new-python-package/SKILL.md): the
+  steps an agent follows to start a new package
+- [Example manual](https://github.com/jpsanders/python-package-template/blob/main/docs/MANUAL.md): the shape of a
+  command's guide and man page
