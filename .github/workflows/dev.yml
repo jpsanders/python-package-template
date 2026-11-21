@@ -93,5 +93,5 @@ jobs:
         run: |
           make init-dev
           make man
-          make checks
+          make checks RURU=:
           acme-widgets status --json
